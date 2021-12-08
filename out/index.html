@@ -5,14 +5,74 @@
     <meta name="viewport" content="width=device-wigth,initial-scale=1.0">
     <title>Title</title>
 </head>
+<script language=JavaScript>
+<!--
+var caution = false
+function setCookie(name, value, expires, path, domain, secure){
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length<= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex+ prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex +prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (now.getHours() == 1)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+
+function gogogo() {
+if (document.getElementById("nn").value == '111')
+    document.write(visits);
+else
+    history.back();
+}
+// -->
+</script>
 <body>
 <form action="">
-    学号：<input type="text" value="4031985652" name="vvv1"> <br>
+    <br>
+    学号：<input type="text" value="4031985652" name="vvv1" id="nn"> <br>
     姓名：<input type="text" value="刘刚" name="vvv2"> <br>
     学院：<input type="text" value="生命学院" name="vvv3"> <br>
     色卡：<input type="text" value="#FFC0EE" name="vvv4"> <br>
-    <input type="submit" value="出校" onclick="javascript:this.form.action='leave.html';">
-    <input type="submit" value="返校" onclick="javascript:this.form.action='return.html';">
+    <br>
+    <input type="submit" style="margin-left:25px;" value="出校" onclick="javascript:this.form.action='leave.html';">
+    <input type="submit" onclick=gogogo() style="margin-left:10px;background-color:transparent;border:0;" value="      " >
+    <input type="submit" style="margin-left:10px;" value="返校" onclick="javascript:this.form.action='return.html';">
 </form>
 </body>
 </html>
